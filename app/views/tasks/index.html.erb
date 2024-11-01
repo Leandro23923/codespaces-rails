@@ -1,0 +1,26 @@
+<h1>Lista de Tareas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Completado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.completed ? 'Sí' : 'No' %></td>
+        <td>
+          <%= link_to 'Ver', task_path(task) %> |
+          <%= link_to 'Editar', edit_task_path(task) %> |
+          <%= link_to 'Eliminar', task_path(task), method: :delete, data: { confirm: '¿Estás seguro de eliminar esta tarea?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Nueva Tarea', new_task_path %>
