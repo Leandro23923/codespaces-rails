@@ -13,14 +13,16 @@
 ActiveRecord::Schema[7.1].define(version: 2024_11_01_181913) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
-    t.string "body"
+    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "articles_tags", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "articles_tags", id: false, force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["article_id"], name: "index_articles_tags_on_article_id"
+    t.index ["tag_id"], name: "index_articles_tags_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -43,4 +45,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_01_181913) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "articles_tags", "articles"
+  add_foreign_key "articles_tags", "tags"
 end
